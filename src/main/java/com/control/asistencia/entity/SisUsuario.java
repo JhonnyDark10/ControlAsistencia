@@ -3,6 +3,7 @@ package com.control.asistencia.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "sis_usuario")
@@ -15,7 +16,7 @@ public class SisUsuario implements Serializable {
     private Integer id;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "usu_idRol", nullable = false)
+    @JoinColumn(name = "usu_idrol", nullable = false)
     private SisRol usuIdrol;
 
     @Column(name = "usu_nombres", nullable = false, length = 50)
@@ -33,7 +34,7 @@ public class SisUsuario implements Serializable {
     @Column(name = "usu_cedula", nullable = false, length = 13)
     private String usuCedula;
 
-    @Column(name = "usu_fechaNacimiento")
+    @Column(name = "usu_fechanacimiento")
     private LocalDate usuFechanacimiento;
 
     @Column(name = "usu_estado", nullable = false)
@@ -110,4 +111,5 @@ public class SisUsuario implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
+
 }
