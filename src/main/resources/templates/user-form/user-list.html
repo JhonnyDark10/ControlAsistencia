@@ -3,22 +3,29 @@
         <thead class="thead-light">
         <tr>
             <th scope="col">#</th>
+            <th scope="col">Cedula</th>
+            <th scope="col">Rol</th>
             <th scope="col">Nombres</th>
             <th scope="col">Apellidos</th>
             <th scope="col">Username</th>
-            <th scope="col">Cedula</th>
+            <th scope="col">Fecha Nacimiento</th>
             <th></th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="user: ${userList}">
            <td th:text="${user.id}"></td>
+            <td th:text="${user.usuCedula}"></td>
+            <td th:text="${user.usuIdrol.roldescripcion}"></td>
             <td th:text="${user.usuNombres}"></td>
             <td th:text="${user.usuApellidos}"></td>
             <td th:text="${user.usuUsuario}"></td>
-            <td th:text="${user.usuCedula}"></td>
+            <td th:text="${user.usuFechanacimiento}"></td>
+
             <td>
-                <a href="#"><i class="fas fa-edit"></i></a> | <a href="#"><i class="fas fa-user-times"></i></a>
+               <a href="#"><i class="fas fa-user"></i></a>  |
+                <a href="#"><i class="fas fa-edit"></i></a> |
+                <a href="#"><i class="fas fa-user-times"></i></a>
             </td>
         </tr>
         </tbody>

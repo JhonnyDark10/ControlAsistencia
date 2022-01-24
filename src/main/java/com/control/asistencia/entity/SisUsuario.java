@@ -40,6 +40,17 @@ public class SisUsuario implements Serializable {
     @Column(name = "usu_estado", nullable = false)
     private Character usuEstado;
 
+    @Transient
+    private String confirmPassword;
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
     public Character getUsuEstado() {
         return usuEstado;
     }
