@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface UserRepository extends CrudRepository<SisUsuario, Integer> {
 
 
-
+public Optional<SisUsuario> findByUsuUsuario(String usuUsuario);
 
 
 }

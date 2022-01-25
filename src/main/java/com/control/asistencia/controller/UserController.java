@@ -6,7 +6,13 @@ import com.control.asistencia.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
 
 @Controller
 public class UserController {
@@ -33,6 +39,21 @@ public class UserController {
     @GetMapping("/user")
     public String getUserForm1(Model model) {
         model.addAttribute("userCrud", new SisUsuario());
+        model.addAttribute("roles",rolRepository.findAll());
+        return "user-form/user-form";
+    }
+
+    @PostMapping("/user")
+    public String createUser(@Valid @ModelAttribute("userCrud")SisUsuario sisUsuario, BindingResult result, ModelMap model){
+    if(result.hasErrors()){
+        model.addAttribute("userCrud",sisUsuario);
+    }else{
+        try {
+            userService.createUser(sisUsuario);
+        }catch (Exception e){
+        model.addAttribute("formErrorMessage",e.getMessage());
+        }
+    }
         model.addAttribute("roles",rolRepository.findAll());
         return "user-form/user-form";
     }

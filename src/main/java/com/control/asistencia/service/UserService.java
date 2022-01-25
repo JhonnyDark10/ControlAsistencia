@@ -5,4 +5,6 @@ import com.control.asistencia.entity.SisUsuario;
 public interface UserService {
 
     public Iterable<SisUsuario> getAllUsers();
+
+    public SisUsuario createUser(SisUsuario sisUsuario) throws Exception;
 }

@@ -39,35 +39,42 @@
 <body>
 <div class="container">
     <div  class="table-responsive">
-    <form id="userCrud" class="form" role="form" autocomplete="off" th:objetc="${userCrud}">
+    <form id="userCrud" class="form" role="form" autocomplete="off" th:objetc="${userCrud}" th:action="@{/user}" method="post">
         <div class="form-group row">
             <label class="col-lg-3 col-form-label form-control-label">Cedula</label>
             <div class="col-lg-9">
-                <input class="form-control" type="text" th:field="${userCrud.usuCedula}">
+                <input class="form-control" type="text" th:field="${userCrud.usuCedula}" >
+                <div class="alert-danger" th:if="${#fields.hasErrors('userCrud.usuCedula')}" th:errors="*{userCrud.usuCedula}">Cedula Error</div>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-lg-3 col-form-label form-control-label">Nombres</label>
             <div class="col-lg-9">
                 <input class="form-control" type="text" th:field="${userCrud.usuNombres}" >
+                <div class="alert-danger" th:if="${#fields.hasErrors('userCrud.usuNombres')}" th:errors="*{usuNombres}">Nombre Error</div>
+
             </div>
         </div>
         <div class="form-group row">
             <label class="col-lg-3 col-form-label form-control-label">Apellidos</label>
             <div class="col-lg-9">
-                <input class="form-control" type="email" th:field="${userCrud.usuApellidos}">
+                <input class="form-control" type="text" th:field="${userCrud.usuApellidos}">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-lg-3 col-form-label form-control-label">Usuario</label>
             <div class="col-lg-9">
                 <input class="form-control" type="text" th:field="${userCrud.usuUsuario}" >
+                <div class="alert-danger" th:if="${#fields.hasErrors('userCrud.usuUsuario')}" th:errors="*{usuUsuario}">Usuario Error</div>
+
             </div>
         </div>
         <div class="form-group row">
             <label class="col-lg-3 col-form-label form-control-label">Clave</label>
             <div class="col-lg-9">
                 <input class="form-control" type="password" th:field="${userCrud.usuContrasena}">
+                <div class="alert-danger" th:if="${#fields.hasErrors('userCrud.usuContrasena')}" th:errors="*{usuContrasena}">Contraseña Error</div>
+
             </div>
         </div>
         <div class="form-group row">
@@ -88,7 +95,7 @@
             <label class="col-lg-3 col-form-label form-control-label">Rol de Usuario</label>
             <div class="col-lg-9">
 
-                    <select  th:field="${userCrud.usuIdrol}"   >
+                    <select  th:field="*{userCrud.usuIdrol}"   >
                         <!-- Opciones del Combo -->
                         <option th:each="role :${roles}" th:value="${role.id}" th:text="${role.roldescripcion}"
 
@@ -101,10 +108,20 @@
         <div class="form-group row">
             <div class="col-lg-12 text-center">
                 <input type="reset" class="btn btn-secondary" value="Cancelar">
-                <input type="button" class="btn btn-primary"
+                <input type="submit" class="btn btn-primary"
                        value="Guardar">
             </div>
         </div>
+
+        <div class="form-group row">
+            <label class="col-lg-3 col-form-label form-control-label">Estado</label>
+            <div class="col-lg-9">
+                <input class="form-control" value="A" type="text" th:field="${userCrud.usuEstado}">
+            </div>
+        </div>
+
+
+        <div class="alert alert-danger text-center" th:if="${formErrorMessage}" th:text="${formErrorMessage}">Error MEssage</div>
     </form>
 </div>
 </div>

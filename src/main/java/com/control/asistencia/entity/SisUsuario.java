@@ -1,9 +1,11 @@
 package com.control.asistencia.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Objects;
 
 @Entity
 @Table(name = "sis_usuario")
@@ -19,20 +21,31 @@ public class SisUsuario implements Serializable {
     @JoinColumn(name = "usu_idrol", nullable = false)
     private SisRol usuIdrol;
 
+
     @Column(name = "usu_nombres", nullable = false, length = 50)
+    @NotBlank(message = "Name cannot be null")
     private String usuNombres;
 
     @Column(name = "usu_apellidos", nullable = false, length = 50)
     private String usuApellidos;
 
+
     @Column(name = "usu_usuario", nullable = false, length = 50)
+    @NotBlank
     private String usuUsuario;
 
+
     @Column(name = "usu_contrasena", nullable = false, length = 50)
+    @NotBlank
     private String usuContrasena;
 
+
+
     @Column(name = "usu_cedula", nullable = false, length = 13)
+    @Size(min=10,max=13,message="no cumple con las reglas min 10 max 13")
+    @NotBlank
     private String usuCedula;
+
 
     @Column(name = "usu_fechanacimiento")
     private LocalDate usuFechanacimiento;
