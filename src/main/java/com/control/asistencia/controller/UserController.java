@@ -47,13 +47,20 @@ public class UserController {
     public String createUser(@Valid @ModelAttribute("userCrud")SisUsuario sisUsuario, BindingResult result, ModelMap model){
     if(result.hasErrors()){
         model.addAttribute("userCrud",sisUsuario);
+        System.out.println("jhonny <aqi entro en error");
     }else{
         try {
+
+            System.out.println("flores <aqi entro a insertar");
             userService.createUser(sisUsuario);
+            model.addAttribute("userList", userService.getAllUsers());
+            return "redirect:/userList";
         }catch (Exception e){
-        model.addAttribute("formErrorMessage",e.getMessage());
+            System.out.println("jhonny <aqi entro en error 22222");
+            model.addAttribute("formErrorMessage",e.getMessage());
         }
     }
+
         model.addAttribute("roles",rolRepository.findAll());
         return "user-form/user-form";
     }

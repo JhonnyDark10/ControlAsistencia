@@ -1,11 +1,14 @@
 package com.control.asistencia.entity;
 
+
 import javax.persistence.*;
-import javax.validation.constraints.FutureOrPresent;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+
+
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.sql.Date;
+
 
 @Entity
 @Table(name = "sis_usuario")
@@ -23,7 +26,8 @@ public class SisUsuario implements Serializable {
 
 
     @Column(name = "usu_nombres", nullable = false, length = 50)
-    @NotBlank(message = "Name cannot be null")
+    @NotEmpty
+    @Size(min=2)
     private String usuNombres;
 
     @Column(name = "usu_apellidos", nullable = false, length = 50)
@@ -31,24 +35,26 @@ public class SisUsuario implements Serializable {
 
 
     @Column(name = "usu_usuario", nullable = false, length = 50)
-    @NotBlank
+    @NotEmpty
+    @Size(min=3)
     private String usuUsuario;
 
 
     @Column(name = "usu_contrasena", nullable = false, length = 50)
-    @NotBlank
+    @NotEmpty
+    @Size(min=5)
     private String usuContrasena;
 
 
 
     @Column(name = "usu_cedula", nullable = false, length = 13)
-    @Size(min=10,max=13,message="no cumple con las reglas min 10 max 13")
-    @NotBlank
+    @NotEmpty
+    @Size(min = 10,max = 13)
     private String usuCedula;
 
 
     @Column(name = "usu_fechanacimiento")
-    private LocalDate usuFechanacimiento;
+    private Date usuFechanacimiento;
 
     @Column(name = "usu_estado", nullable = false)
     private Character usuEstado;
@@ -72,11 +78,11 @@ public class SisUsuario implements Serializable {
         this.usuEstado = usuEstado;
     }
 
-    public LocalDate getUsuFechanacimiento() {
+    public Date getUsuFechanacimiento() {
         return usuFechanacimiento;
     }
 
-    public void setUsuFechanacimiento(LocalDate usuFechanacimiento) {
+    public void setUsuFechanacimiento(Date usuFechanacimiento) {
         this.usuFechanacimiento = usuFechanacimiento;
     }
 
