@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.annotation.processing.Messager;
 import javax.validation.Valid;
 
 @Controller
@@ -111,12 +112,21 @@ public class UserController {
     @GetMapping("/deleteUser/{id}")
     public String deleteUser(Model model, @PathVariable(name="id") Integer id) {
         try {
+
             userService.deleteUser(id);
+
+
+
         } catch (Exception e) {
             model.addAttribute("listErrorMessage",e.getMessage());
         }
         return getUserForm(model);
     }
 
-
+    @GetMapping("/insertarUser/insertar")
+    public String insertUser(ModelMap model) {
+        return "redirect:/user";
     }
+
+
+}
