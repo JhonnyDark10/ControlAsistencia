@@ -10,6 +10,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
@@ -65,4 +66,57 @@ public class UserController {
         return "user-form/user-form";
     }
 
-}
+    @GetMapping("/editUser/{id}")
+    public String getEditUserForm(Model model, @PathVariable(name ="id")Integer id) throws Exception {
+        SisUsuario userToEdit = userService.getSisUsuarioById(id);
+
+        model.addAttribute("userCrud", userToEdit);
+        model.addAttribute("userList", userService.getAllUsers());
+        model.addAttribute("roles",rolRepository.findAll());
+        model.addAttribute("editMode","true");
+        return "user-form/user-form";
+    }
+
+    @PostMapping("/editUser")
+    public String updateUser(@Valid @ModelAttribute("userCrud")SisUsuario sisUsuario, BindingResult result, ModelMap model) {
+        if(result.hasErrors()){
+            model.addAttribute("userCrud",sisUsuario);
+            model.addAttribute("editMode","true");
+
+        }else{
+            try {
+                userService.updateUser(sisUsuario);
+                model.addAttribute("userList", userService.getAllUsers());
+                return "redirect:/userList";
+            }catch (Exception e){
+                model.addAttribute("roles",rolRepository.findAll());
+                model.addAttribute("userCrud",sisUsuario);
+                model.addAttribute("formErrorMessage",e.getMessage());
+                model.addAttribute("editMode","true");
+            }
+        }
+        model.addAttribute("userList", userService.getAllUsers());
+        model.addAttribute("roles",rolRepository.findAll());
+        return "user-form/user-form";
+    }
+
+
+    @GetMapping("/editUser/cancel")
+    public String cancelEditUser(ModelMap model) {
+        return "redirect:/userList";
+    }
+
+
+
+    @GetMapping("/deleteUser/{id}")
+    public String deleteUser(Model model, @PathVariable(name="id") Integer id) {
+        try {
+            userService.deleteUser(id);
+        } catch (Exception e) {
+            model.addAttribute("listErrorMessage",e.getMessage());
+        }
+        return getUserForm(model);
+    }
+
+
+    }
